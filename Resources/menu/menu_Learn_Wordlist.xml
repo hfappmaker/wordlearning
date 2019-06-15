@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:local="http://schemas.android.com/apk/res-auto">
+  <item
+
+     android:id="@+id/action_auto_Learn_Wordlist"
+        
+     android:icon="@drawable/ic_auto_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Auto" />
+  <item
+
+     android:id="@+id/action_pause_Learn_Wordlist"
+        
+     android:icon="@drawable/ic_pause_48pt"
+
+     local:showAsAction="ifRoom"
+        
+     android:visible="false"
+
+     android:title="Pause" />
+  <item
+
+     android:id="@+id/action_jump_Learn_Wordlist"
+        
+     android:icon="@drawable/ic_jump_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Jump Page" />
+  <item
+
+     android:id="@+id/action_edit_Learn_Wordlist"
+        
+     android:icon="@drawable/ic_edit_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Edit Tag" />
+</menu>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:local="http://schemas.android.com/apk/res-auto">
+  <item
+
+   android:id="@+id/action_add_Start_Init"
+
+   android:icon="@drawable/ic_add_48pt"
+
+   local:showAsAction="ifRoom"
+
+   android:title="Add" />
+  <item
+
+     android:id="@+id/action_settings_Start_Init"
+        
+     android:icon="@drawable/ic_settings_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Settings" />
+</menu>

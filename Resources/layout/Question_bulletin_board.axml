@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/llToolbar_Question_bulletin_board">
+    <FrameLayout
+        android:id="@+id/flToolbar_Question_bulletin_board"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/tbQuestion_bulletin_board"
+            layout="@layout/Toolbar_Question_bulletin_board" />
+    </FrameLayout>
+    <ListView
+        android:layout_height="0dp"
+        android:id="@+id/lv_Question_bulletin_board"
+        android:layout_width="match_parent"
+        android:layout_weight="5" 
+        android:fadeScrollbars="false"/>
+</LinearLayout>

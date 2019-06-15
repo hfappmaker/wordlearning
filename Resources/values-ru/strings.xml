@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:local="http://schemas.android.com/apk/res-auto">
+<string name="app_name">WordLearning</string>
+<!--Settings-->
+<string name="BackupandRecover_Settings">Резервное копирование/восстановление</string>
+<string name="Themecolor_Settings">Цвет темы</string>
+<string name="CSVfile_Settings">CSV файл</string>
+<string-array name="array_Backup_And_Recover">
+<item android:id="@+id/it_CreateBackup">Создать резервную копию</item>
+<item>Восстановить из резервной копии</item>
+</string-array>
+<string-array name="array_Changethemecolor">
+<item>Изменение цвета темы</item>
+</string-array>
+<!--<string-array name="array_Settingvoicelanguage">
+<item>音声出力の言語変更</item>
+</string-array>
+<string-array name="array_SettingAutomode">
+<item>自動再生の間隔を変更（秒単位）</item>
+</string-array>-->
+<string-array name="array_CSVfileimport">
+<item>Импортировать файл CSV</item>
+</string-array>
+<!--<string-array name="array_Changehomename">
+<item>ホーム名の変更</item>
+</string-array>-->
+<!--Dialog_CreateNewTag-->
+<string name="square_Dialog_CreateNewTag">Площадь</string>
+<string name="star_Dialog_CreateNewTag">звезда</string>
+<string name="heart_Dialog_CreateNewTag">Сердце</string>
+<string name="TagMeaning_Dialog_CreateNewTag">Значение тега</string>
+<!--Dialog_SetLearnWord-->
+<string name="Order_Dialog_SetLearnWord">порядок</string>
+<string name="Asc_Dialog_SetLearnWord">Asc</string>
+<string name="Desc_Dialog_SetLearnWord">Desc</string>
+<string name="Random_Dialog_SetLearnWord">Random</string>
+<string name="ChooseTag_Dialog_SetLearnWord">Выберите теги, чтобы узнать</string>
+<!--Dialog_SettingWordlist-->
+<string name="ChooselanguageWord_Dialog_SettingWordlist">Язык речевого вывода(слово)</string>
+<string name="ChooselanguageMeaning_Dialog_SettingWordlist">Язык речевого вывода(имея в виду)</string>
+<string name="Interval_Dialog_SettingWordlist">Интервал автозапуска</string>
+<!--Learn_Wordlist-->
+<string name="OnlyWord_Learn_Wordlist">Только слово</string>
+<string name="OnlyMeaning_Learn_Wordlist">Значение только</string>
+<string name="Both_Learn_Wordlist">И то и другое</string>
+<!--Wordlist_Addword-->
+<string name="Inputword_Wordlist_Addword">Введите слово</string>
+<string name="Inputmeaning_Wordlist_Addword">Введите значение</string>
+<string name="Cancel_Wordlist_Addword">CANCEL</string>
+<string name="Register_Wordlist_Addword">регистр</string>
+<string name="Register_and_Next_Wordlist_Addword">Регистрировать последовательно</string>
+<!--Wordlist_Editword-->
+<string name="Inputword_Wordlist_Editword">Введите слово</string>
+<string name="Inputmeaning_Wordlist_Editword">Введите значение</string>
+<string name="Cancel_Wordlist_Editword">CANCEL</string>
+<string name="Register_Wordlist_Editword">регистр</string>
+<!--menu_popup_Dialog_EditTag-->
+<string name="Editmemo_menu_popup_Dialog_EditTag">Редактировать заметку</string>
+<string name="Edittag_menu_popup_Dialog_EditTag">Изменить тег</string> 
+</resources>

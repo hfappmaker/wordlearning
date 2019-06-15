@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:local="http://schemas.android.com/apk/res-auto">
+  <item
+
+     android:id="@+id/action_integration_Start_Deletemode"
+
+     android:icon="@drawable/ic_integration_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Integration" />
+  <item
+
+     android:id="@+id/action_rename_Start_Deletemode"
+
+     android:icon="@drawable/ic_edit_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Rename" />
+  <item
+
+     android:id="@+id/action_move_Start_Deletemode"
+
+     android:icon="@drawable/ic_move_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Move" />
+  <item
+
+     android:id="@+id/action_delete_Start_Deletemode"
+
+     android:icon="@drawable/ic_delete_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Delete" />
+</menu>

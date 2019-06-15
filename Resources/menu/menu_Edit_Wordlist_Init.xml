@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:local="http://schemas.android.com/apk/res-auto">
+  <item
+
+     android:id="@+id/action_play_Edit_Wordlist_Init"
+        
+     android:icon="@drawable/ic_play_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Play" />
+  <item
+
+     android:id="@+id/action_add_Edit_Wordlist_Init"
+
+     android:icon="@drawable/ic_add_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="Add" />
+  <item
+
+     android:id="@+id/action_edit_Edit_Wordlist_Init"
+        
+     android:icon="@drawable/ic_palette_48pt"
+
+     local:showAsAction="ifRoom"
+
+     android:title="EditTag" />
+</menu>

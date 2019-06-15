@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:local="http://schemas.android.com/apk/res-auto">
+<string name="app_name">WordLearning</string>
+<!--Settings-->
+<string name="BackupandRecover_Settings">Backup/Recover</string>
+<string name="Themecolor_Settings">Theme color</string>
+<string name="CSVfile_Settings">CSV file</string>
+<string name="Question_bulletin_board">Question bulletin board</string>
+<string-array name="array_Backup_And_Recover">
+<item android:id="@+id/it_CreateBackup">Create backup</item>
+<item>Recover from backup</item>
+</string-array>
+<string-array name="array_Changethemecolor">
+<item>Change of theme color</item>
+</string-array>
+<string-array name="array_CSVfileimport">
+<item>Import CSV file</item>
+</string-array>
+<string-array name="array_Question_bulletin_board">
+<item>Question bulletin board</item>
+</string-array>
+<!--Dialog_CreateNewTag-->
+<string name="square_Dialog_CreateNewTag">Square</string>
+<string name="star_Dialog_CreateNewTag">Star</string>
+<string name="heart_Dialog_CreateNewTag">Heart</string>
+<string name="TagMeaning_Dialog_CreateNewTag">Meaning of tag</string>
+<!--Dialog_SetLearnWord-->
+<string name="Order_Dialog_SetLearnWord">Order</string>
+<string name="Asc_Dialog_SetLearnWord">Asc</string>
+<string name="Desc_Dialog_SetLearnWord">Desc</string>
+<string name="Random_Dialog_SetLearnWord">Random</string>
+<string name="ChooseTag_Dialog_SetLearnWord">Select tags to learn</string>
+<!--Dialog_SettingWordlist-->
+<string name="ChooselanguageWord_Dialog_SettingWordlist">Speech output language(word)</string>
+<string name="ChooselanguageMeaning_Dialog_SettingWordlist">Speech output language(meaning)</string>
+<string name="Interval_Dialog_SettingWordlist">Autoplay interval</string>
+<!--Learn_Wordlist-->
+<string name="OnlyWord_Learn_Wordlist">Word only</string>
+<string name="OnlyMeaning_Learn_Wordlist">Meaning only</string>
+<string name="Both_Learn_Wordlist">Both</string>
+<!--Toolbar_Dialog_EditTag-->
+<string name="Edittag_Toolbar_Dialog_EditTag">Edit a tag</string>
+<!--Wordlist_Addword-->
+<string name="Inputword_Wordlist_Addword">Enter a word</string>
+<string name="Inputmeaning_Wordlist_Addword">Enter meaning</string>
+<string name="Cancel_Wordlist_Addword">CANCEL</string>
+<string name="Register_Wordlist_Addword">REGISTER</string>
+<string name="Register_and_Next_Wordlist_Addword">REGISTER AND NEXT</string>
+<!--Wordlist_Editword-->
+<string name="Inputword_Wordlist_Editword">Enter a word</string>
+<string name="Inputmeaning_Wordlist_Editword">Enter meaning</string>
+<string name="Cancel_Wordlist_Editword">CANCEL</string>
+<string name="Register_Wordlist_Editword">REGISTER</string>
+<!--menu_popup_Dialog_EditTag-->
+<string name="Editmemo_menu_popup_Dialog_EditTag">Edit memo</string>
+<string name="Edittag_menu_popup_Dialog_EditTag">Edit tag</string> 
+</resources>

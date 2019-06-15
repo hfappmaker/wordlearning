@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:local="http://schemas.android.com/apk/res-auto">
+<string name="app_name">WordLearning</string>
+<!--Settings-->
+<string name="BackupandRecover_Settings">備份/恢復</string>
+<string name="Themecolor_Settings">主題色</string>
+<string name="CSVfile_Settings">CSV文件</string>
+<string-array name="array_Backup_And_Recover">
+<item android:id="@+id/it_CreateBackup">創建備份</item>
+<item>從備份中恢復</item>
+</string-array>
+<string-array name="array_Changethemecolor">
+<item>主題顏色的變化</item>
+</string-array>
+<!--<string-array name="array_Settingvoicelanguage">
+<item>音声出力の言語変更</item>
+</string-array>
+<string-array name="array_SettingAutomode">
+<item>自動再生の間隔を変更（秒単位）</item>
+</string-array>-->
+<string-array name="array_CSVfileimport">
+<item>導入CSV文件</item>
+</string-array>
+<!--<string-array name="array_Changehomename">
+<item>ホーム名の変更</item>
+</string-array>-->
+<!--Dialog_CreateNewTag-->
+<string name="square_Dialog_CreateNewTag">廣場</string>
+<string name="star_Dialog_CreateNewTag">星</string>
+<string name="heart_Dialog_CreateNewTag">心</string>
+<string name="TagMeaning_Dialog_CreateNewTag">標籤的含義</string>
+<!--Dialog_SetLearnWord-->
+<string name="Order_Dialog_SetLearnWord">訂購</string>
+<string name="Asc_Dialog_SetLearnWord">Asc</string>
+<string name="Desc_Dialog_SetLearnWord">Desc</string>
+<string name="Random_Dialog_SetLearnWord">Random</string>
+<string name="ChooseTag_Dialog_SetLearnWord">選擇要學習的標籤</string>
+<!--Dialog_SettingWordlist-->
+<string name="ChooselanguageWord_Dialog_SettingWordlist">語音輸出語言(字)</string>
+<string name="ChooselanguageMeaning_Dialog_SettingWordlist">語音輸出語言(含義)</string>
+<string name="Interval_Dialog_SettingWordlist">自動播放間隔</string>
+<!--Learn_Wordlist-->
+<string name="OnlyWord_Learn_Wordlist">僅限單詞</string>
+<string name="OnlyMeaning_Learn_Wordlist">僅含義</string>
+<string name="Both_Learn_Wordlist">都</string>
+<!--Wordlist_Addword-->
+<string name="Inputword_Wordlist_Addword">輸入一個單詞</string>
+<string name="Inputmeaning_Wordlist_Addword">輸入意思</string>
+<string name="Cancel_Wordlist_Addword">CANCEL</string>
+<string name="Register_Wordlist_Addword">註冊</string>
+<string name="Register_and_Next_Wordlist_Addword">註冊順序</string>
+<!--Wordlist_Editword-->
+<string name="Inputword_Wordlist_Editword">輸入一個單詞</string>
+<string name="Inputmeaning_Wordlist_Editword">輸入意思</string>
+<string name="Cancel_Wordlist_Editword">CANCEL</string>
+<string name="Register_Wordlist_Editword">註冊</string>
+<!--menu_popup_Dialog_EditTag-->
+<string name="Editmemo_menu_popup_Dialog_EditTag">編輯備忘錄</string>
+<string name="Edittag_menu_popup_Dialog_EditTag">編輯標籤</string> 
+</resources>

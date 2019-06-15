@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:local="http://schemas.android.com/apk/res-auto">
+<string name="app_name">WordLearning</string>
+<!--Settings-->
+<string name="BackupandRecover_Settings">Sauvegarde/Récupération</string>
+<string name="Themecolor_Settings">Couleur du thème</string>
+<string name="CSVfile_Settings">Fichier CSV</string>
+<string-array name="array_Backup_And_Recover">
+<item android:id="@+id/it_CreateBackup">Créer une sauvegarde</item>
+<item>Récupérer de la sauvegarde</item>
+</string-array>
+<string-array name="array_Changethemecolor">
+<item>Changement de couleur de thème</item>
+</string-array>
+<!--<string-array name="array_Settingvoicelanguage">
+<item>音声出力の言語変更</item>
+</string-array>
+<string-array name="array_SettingAutomode">
+<item>自動再生の間隔を変更（秒単位）</item>
+</string-array>-->
+<string-array name="array_CSVfileimport">
+<item>Importer un fichier CSV</item>
+</string-array>
+<!--<string-array name="array_Changehomename">
+<item>ホーム名の変更</item>
+</string-array>-->
+<!--Dialog_CreateNewTag-->
+<string name="square_Dialog_CreateNewTag">Carré</string>
+<string name="star_Dialog_CreateNewTag">Étoile</string>
+<string name="heart_Dialog_CreateNewTag">Cœur</string>
+<string name="TagMeaning_Dialog_CreateNewTag">Signification de tag</string>
+<!--Dialog_SetLearnWord-->
+<string name="Order_Dialog_SetLearnWord">Ordre</string>
+<string name="Asc_Dialog_SetLearnWord">Asc</string>
+<string name="Desc_Dialog_SetLearnWord">Desc</string>
+<string name="Random_Dialog_SetLearnWord">Random</string>
+<string name="ChooseTag_Dialog_SetLearnWord">Sélectionnez les balises à apprendre</string>
+<!--Dialog_SettingWordlist-->
+<string name="ChooselanguageWord_Dialog_SettingWordlist">Langue de sortie de la parole(mot)</string>
+<string name="ChooselanguageMeaning_Dialog_SettingWordlist">Langue de sortie de la parole(sens)</string>
+<string name="Interval_Dialog_SettingWordlist">Intervalle de lecture automatique</string>
+<!--Learn_Wordlist-->
+<string name="OnlyWord_Learn_Wordlist">Word seulement</string>
+<string name="OnlyMeaning_Learn_Wordlist">Signifiant seulement</string>
+<string name="Both_Learn_Wordlist">Tous les deux</string>
+<!--Toolbar_Dialog_EditTag-->
+<string name="Edittag_Toolbar_Dialog_EditTag">Edit a tag</string>
+<!--Wordlist_Addword-->
+<string name="Inputword_Wordlist_Addword">Entrez un mot</string>
+<string name="Inputmeaning_Wordlist_Addword">Entrez le sens</string>
+<string name="Cancel_Wordlist_Addword">CANCEL</string>
+<string name="Register_Wordlist_Addword">registre</string>
+<string name="Register_and_Next_Wordlist_Addword">Enregistrement séquentiel</string>
+<!--Wordlist_Editword-->
+<string name="Inputword_Wordlist_Editword">Entrez un mot</string>
+<string name="Inputmeaning_Wordlist_Editword">Entrez le sens</string>
+<string name="Cancel_Wordlist_Editword">CANCEL</string>
+<string name="Register_Wordlist_Editword">registre</string>
+<!--menu_popup_Dialog_EditTag-->
+<string name="Editmemo_menu_popup_Dialog_EditTag">Modifier le mémo</string>
+<string name="Edittag_menu_popup_Dialog_EditTag">Modifier la balise</string> 
+</resources>

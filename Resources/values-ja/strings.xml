@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:local="http://schemas.android.com/apk/res-auto">
+<string name="app_name">自分で作る！単語帳メーカー</string>
+<!--Settings-->
+<string name="BackupandRecover_Settings">バックアップ/復元</string>
+<string name="Themecolor_Settings">テーマカラー</string>
+<string name="CSVfile_Settings">CSVファイル</string>
+<string name="Question_bulletin_board">質問掲示板</string>
+<string-array name="array_Backup_And_Recover">
+<item android:id="@+id/it_CreateBackup">バックアップの作成</item>
+<item>バックアップから復元</item>
+</string-array>
+<string-array name="array_Changethemecolor">
+<item>テーマカラーの変更</item>
+</string-array>
+<string-array name="array_CSVfileimport">
+<item>CSVファイルのインポート</item>
+</string-array>
+<string-array name="array_Question_bulletin_board">
+<item>質問掲示板</item>
+</string-array>
+<!--Dialog_CreateNewTag-->
+<string name="square_Dialog_CreateNewTag">四角</string>
+<string name="star_Dialog_CreateNewTag">星</string>
+<string name="heart_Dialog_CreateNewTag">ハート</string>
+<string name="TagMeaning_Dialog_CreateNewTag">タグの意味</string>
+<!--Dialog_SetLearnWord-->
+<string name="Order_Dialog_SetLearnWord">五十音順</string>
+<string name="Asc_Dialog_SetLearnWord">昇順</string>
+<string name="Desc_Dialog_SetLearnWord">降順</string>
+<string name="Random_Dialog_SetLearnWord">ランダム</string>
+<string name="ChooseTag_Dialog_SetLearnWord">学習する単語のタグを選択</string>
+<!--Dialog_SettingWordlist-->
+<string name="ChooselanguageWord_Dialog_SettingWordlist">音声出力の言語(単語)</string>
+<string name="ChooselanguageMeaning_Dialog_SettingWordlist">音声出力の言語(意味)</string>
+<string name="Interval_Dialog_SettingWordlist">自動再生の間隔</string>
+<!--Learn_Wordlist-->
+<string name="OnlyWord_Learn_Wordlist">単語のみ</string>
+<string name="OnlyMeaning_Learn_Wordlist">意味のみ</string>
+<string name="Both_Learn_Wordlist">両方</string>
+<!--Wordlist_Addword-->
+<string name="Inputword_Wordlist_Addword">単語を入力</string>
+<string name="Inputmeaning_Wordlist_Addword">意味を入力</string>
+<string name="Cancel_Wordlist_Addword">キャンセル</string>
+<string name="Register_Wordlist_Addword">登録</string>
+<string name="Register_and_Next_Wordlist_Addword">登録して次へ</string>
+<!--Wordlist_Editword-->
+<string name="Inputword_Wordlist_Editword">単語を入力</string>
+<string name="Inputmeaning_Wordlist_Editword">意味を入力</string>
+<string name="Cancel_Wordlist_Editword">キャンセル</string>
+<string name="Register_Wordlist_Editword">登録</string>
+<!--menu_popup_Dialog_EditTag-->
+<string name="Editmemo_menu_popup_Dialog_EditTag">メモの編集</string>
+<string name="Edittag_menu_popup_Dialog_EditTag">タグの編集</string> 
+</resources>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "985138778614",
+    "firebase_url": "https://api-4876079148476953481-415794.firebaseio.com",
+    "project_id": "api-4876079148476953481-415794",
+    "storage_bucket": "api-4876079148476953481-415794.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985138778614:android:39f19ecf955c335e",
+        "android_client_info": {
+          "package_name": "jp.h_f_appmaker.wordlearning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985138778614-1ajt6ov545hn1nm3s4n5jqot0afk43st.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "jp.h_f_appmaker.wordlearning",
+            "certificate_hash": "3208d47ac802f1bbac7f9b084caacfa31c6b0462"
+          }
+        },
+        {
+          "client_id": "985138778614-rr7jip8ho1p3esf26ithtt1u3pbvlo4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYtc4t1c7BguGD9enwpoweTBuzUKw9S5Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985138778614-rr7jip8ho1p3esf26ithtt1u3pbvlo4h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

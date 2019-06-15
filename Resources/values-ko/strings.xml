@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:local="http://schemas.android.com/apk/res-auto">
+<string name="app_name">WordLearning</string>
+<!--Settings-->
+<string name="BackupandRecover_Settings">백업 / 복구</string>
+<string name="Themecolor_Settings">테마 색</string>
+<string name="CSVfile_Settings">CSV 파일</string>
+<string-array name="array_Backup_And_Recover">
+<item android:id="@+id/it_CreateBackup">백업 만들기</item>
+<item>백업에서 복구</item>
+</string-array>
+<string-array name="array_Changethemecolor">
+<item>테마 색 변경</item>
+</string-array>
+<!--<string-array name="array_Settingvoicelanguage">
+<item>音声出力の言語変更</item>
+</string-array>
+<string-array name="array_SettingAutomode">
+<item>自動再生の間隔を変更（秒単位）</item>
+</string-array>-->
+<string-array name="array_CSVfileimport">
+<item>CSV 파일 가져 오기</item>
+</string-array>
+<!--<string-array name="array_Changehomename">
+<item>ホーム名の変更</item>
+</string-array>-->
+<!--Dialog_CreateNewTag-->
+<string name="square_Dialog_CreateNewTag">광장</string>
+<string name="star_Dialog_CreateNewTag">별</string>
+<string name="heart_Dialog_CreateNewTag">심장</string>
+<string name="TagMeaning_Dialog_CreateNewTag">태그의 의미</string>
+<!--Dialog_SetLearnWord-->
+<string name="Order_Dialog_SetLearnWord">주문</string>
+<string name="Asc_Dialog_SetLearnWord">Asc</string>
+<string name="Desc_Dialog_SetLearnWord">Desc</string>
+<string name="Random_Dialog_SetLearnWord">Random</string>
+<string name="ChooseTag_Dialog_SetLearnWord">학습 할 태그 선택</string>
+<!--Dialog_SettingWordlist-->
+<string name="ChooselanguageWord_Dialog_SettingWordlist">음성 출력 언어(워드)</string>
+<string name="ChooselanguageMeaning_Dialog_SettingWordlist">음성 출력 언어(의미)</string>
+<string name="Interval_Dialog_SettingWordlist">자동 재생 간격</string>
+<!--Learn_Wordlist-->
+<string name="OnlyWord_Learn_Wordlist">단어 만</string>
+<string name="OnlyMeaning_Learn_Wordlist">의미 만</string>
+<string name="Both_Learn_Wordlist">양자 모두</string>
+<!--Wordlist_Addword-->
+<string name="Inputword_Wordlist_Addword">단어 입력</string>
+<string name="Inputmeaning_Wordlist_Addword">의미 입력</string>
+<string name="Cancel_Wordlist_Addword">CANCEL</string>
+<string name="Register_Wordlist_Addword">레지스터</string>
+<string name="Register_and_Next_Wordlist_Addword">순차적으로 등록</string>
+<!--Wordlist_Editword-->
+<string name="Inputword_Wordlist_Editword">단어 입력</string>
+<string name="Inputmeaning_Wordlist_Editword">의미 입력</string>
+<string name="Cancel_Wordlist_Editword">CANCEL</string>
+<string name="Register_Wordlist_Editword">레지스터</string>
+<!--menu_popup_Dialog_EditTag-->
+<string name="Editmemo_menu_popup_Dialog_EditTag">메모 수정</string>
+<string name="Edittag_menu_popup_Dialog_EditTag">태그 수정</string> 
+</resources>

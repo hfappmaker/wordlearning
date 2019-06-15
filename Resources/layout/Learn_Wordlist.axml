@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|bottom"
+    android:id="@+id/llMain_Learn_Wordlist">
+    <FrameLayout
+        android:id="@+id/flToolbar_Learn_Wordlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/tbLearn_Wordlist"
+            layout="@layout/Toolbar_Learn_Wordlist_Init" />
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+        <GridLayout
+            android:id="@+id/gl_Taglist_Learn_Wordlist"
+            android:layout_width="30dp"
+            android:layout_height="200dp"
+            android:useDefaultMargins="true"
+            android:layout_gravity="top"
+            android:rowCount="6"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true">
+        </GridLayout>
+        <TextView
+            android:text="Current/All"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/txtPageNo" />
+        <ImageButton          
+            android:src="@drawable/ic_memo_48pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/txtPageNo"
+            android:background="?android:selectableItemBackground"
+            android:id="@+id/ibMemo"/>
+        <ImageButton
+            android:src="@drawable/ic_voice_48pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/txtWord"
+            android:background="?android:selectableItemBackground"
+            android:id="@+id/ibVoice_Word" />
+        <TextView
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/txtWord" />
+        <ImageButton
+            android:src="@drawable/ic_voice_48pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/txtWord"
+            android:background="?android:selectableItemBackground"
+            android:id="@+id/ibVoice_Meaning" />
+        <TextView
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/ibVoice_Meaning"
+            android:id="@+id/txtMeaning" />
+        <TextView
+            android:text="&gt;&gt;"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/txtNext"
+            android:padding="9dp" />
+        <TextView
+            android:text="&lt;&lt;"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/txtPrev"
+            android:padding="9dp" />
+    </RelativeLayout>
+    <RadioGroup
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/rdogSelectVisible">
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:layout_weight="1"
+            android:text="@string/OnlyWord_Learn_Wordlist"
+            android:id="@+id/rdoOnlyWord" />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/OnlyMeaning_Learn_Wordlist"
+            android:id="@+id/rdoOnlyMeaning" />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/Both_Learn_Wordlist"
+            android:layout_weight="1"
+            android:id="@+id/rdoBoth" />
+    </RadioGroup>
+</LinearLayout>

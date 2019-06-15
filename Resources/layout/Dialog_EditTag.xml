@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/ll_Dialog_EditTagforlv"
+android:layout_width="wrap_content"
+android:layout_height="match_parent"
+android:orientation="vertical">
+<FrameLayout
+android:id="@+id/flToolbar_Dialog_EditTag"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+<include
+android:id="@+id/tbDialog_EditTag_include"
+layout="@layout/Toolbar_Dialog_EditTag"/>
+</FrameLayout>
+<ListView
+android:layout_height="150dp"
+android:id="@+id/lv_Dialog_EditTag"
+android:layout_width="match_parent"/>
+</LinearLayout>

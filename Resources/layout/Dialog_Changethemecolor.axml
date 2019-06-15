@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/ll_Dialog_Changethemecolor"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+  <LinearLayout
+      android:id="@+id/ll_Red_Dialog_Changethemecolor"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:text="Red"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/txtRed_Dialog_Changethemecolor">
+      </TextView>
+      <SeekBar
+        android:id="@+id/Sb_Red_Dialog_Changethemecolor"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:max="255"
+        android:progress="150" />
+  </LinearLayout>
+  <LinearLayout
+    android:id="@+id/ll_Green_Dialog_Changethemecolor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:text="Green"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/txtGreen_Dialog_Changethemecolor">
+    </TextView>
+    <SeekBar
+        android:id="@+id/Sb_Green_Dialog_Changethemecolor"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent"
+        android:max="255"
+        android:progress="150" />
+  </LinearLayout>
+  <LinearLayout
+    android:id="@+id/ll_Blue_Dialog_Changethemecolor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:text="Blue"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:id="@+id/txtBlue_Dialog_Changethemecolor">
+    </TextView>
+    <SeekBar
+        android:id="@+id/Sb_Blue_Dialog_Changethemecolor"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent"
+        android:max="255"
+        android:progress="150" />
+  </LinearLayout>
+</LinearLayout>
