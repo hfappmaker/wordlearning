@@ -359,6 +359,7 @@
     <AndroidResource Include="Resources\layout\ToolBar_Question_bulletin_board.xml" />
     <AndroidResource Include="Resources\layout\row_Post.xml" />
     <AndroidResource Include="Resources\menu\menu_Question_bulletin_board.xml" />
+    <AndroidResource Include="Resources\drawable\border.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\mipmap-hdpi\" />
