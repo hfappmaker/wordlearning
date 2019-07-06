@@ -22,10 +22,11 @@ namespace WordLearning
         private DatabaseReference mDatabase;
         static ListView listView;
         //LinearLayout Layout;
-        static List<(string,string)> listboard = new List<(string,string)>();
-        static List<string> listtitle = new List<string>();
+        static List<(string,string,DateTime)> listboard = new List<(string,string,DateTime)>();
+        static List<(string,DateTime)> listtitle = new List<(string,DateTime)>();
         int position;
         string selecttitle;
+        string selecttitledate;
         enum Mode {Title,Board};
         Mode mode;
         string yourname = string.Empty;
@@ -77,9 +78,13 @@ namespace WordLearning
         public void lv_Question_bulletin_board_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (mode == Mode.Board) return;
-            var test = mDatabase.Child(listView.Adapter.GetItem(e.Position).ToString());
+            var title = listView.Adapter.GetItem(e.Position).ToString();
+            var titlename = XmlConvert.EncodeName(title.TrimStart('(').TrimEnd(')').Split(',')[0]);
+            var titledate = XmlConvert.EncodeName(title.TrimStart('(').TrimEnd(')').Split(',')[1].Trim());
+            var test = mDatabase.Child(titlename).Child(titledate);
             position = e.Position;
-            selecttitle = XmlConvert.EncodeName(listView.Adapter.GetItem(e.Position).ToString());
+            selecttitle = titlename;
+            selecttitledate = titledate;
             SupportActionBar.Title = XmlConvert.DecodeName(selecttitle);
             test.AddValueEventListener(new listboardevent(this));
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -89,11 +94,13 @@ namespace WordLearning
 
         private async void Writeonboard(object sender, DialogClickEventArgs e)
         {
-            var test = mDatabase.Child(selecttitle);
+            var test = mDatabase.Child(selecttitle).Child(selecttitledate);
             var dlg = sender as Android.Support.V7.App.AlertDialog;
             EditText editText = dlg.FindViewById<EditText>(Constant.FreeDlgId);
             TextInputEditText textInputEditText = dlg.FindViewById<TextInputEditText>(Constant.FreeDlgId2);
-            await test.Child(XmlConvert.EncodeName(textInputEditText.Text + "    "+DateTime.Now.ToString())).SetValueAsync(XmlConvert.EncodeName(editText.Text)); //SetValue(XmlConvert.EncodeName(editText.Text));
+            string nowtime = DateTime.Now.ToString();
+            await test.Child(XmlConvert.EncodeName(nowtime)).SetValueAsync(string.Empty); //SetValue(XmlConvert.EncodeName(editText.Text));
+            await test.Child(XmlConvert.EncodeName(nowtime)).Child(XmlConvert.EncodeName(textInputEditText.Text)).SetValueAsync(editText.Text);
             test.AddValueEventListener(new listboardevent(this));
             yourname = textInputEditText.Text;
         }
@@ -220,9 +227,9 @@ namespace WordLearning
             var test = mDatabase;
             var dlg = sender as Android.Support.V7.App.AlertDialog;
             TextInputEditText textInputEditText = dlg.FindViewById<TextInputEditText>(Constant.FreeDlgId);
-            await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).SetValueAsync(string.Empty); //SetValue(XmlConvert.EncodeName(editText.Text));
+            await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).SetValueAsync(string.Empty);
+            await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).Child(XmlConvert.EncodeName(DateTime.Now.ToString())).SetValueAsync(string.Empty);
             test.AddValueEventListener(new listtitleevent(this));
-            //throw new NotImplementedException();
         }
 
         public class tt : Java.Lang.Object, IChildEventListener
@@ -269,12 +276,20 @@ namespace WordLearning
 
             public void OnDataChange(DataSnapshot snapshot)
             {
-                listboard = new List<(string,string)>();
+                listboard = new List<(string,string,DateTime)>();
                 foreach (DataSnapshot dss in snapshot.Children.ToEnumerable())
                 {
-                    listboard.Add((XmlConvert.DecodeName(dss.Key),XmlConvert.DecodeName(dss.GetValue(true).ToString())));
+                    DateTime datetime;
+                    var nameanddate = dss.GetValue(true) as JavaDictionary;
+                    var nameanddate2 = dss.GetValue(true) as Java.Lang.String;
+                    if (nameanddate == null) continue;
+                    var name = nameanddate.Keys as JavaSet;
+                    var namestr = name.OfType<string>().First();
+                    var date = nameanddate.Values as JavaSet;
+                    DateTime.TryParse(XmlConvert.DecodeName(date.OfType<string>().First()), out datetime);
+                    listboard.Add((XmlConvert.DecodeName(dss.Key), XmlConvert.DecodeName(namestr), datetime));
                 }
-                listboard = listboard.OrderByDescending(elm => DateTime.Parse(elm.Item1.Substring(elm.Item1.Length - "XXXX/XX/XX XX:XX:XX".Length))).ToList();
+                listboard = listboard.OrderByDescending(elm => elm.Item3).ToList();
                 if (question_bulletin_board.mode == Mode.Board)
                 {
                     listView.Adapter = new ArrayAdapter_Post(question_bulletin_board, Resource.Layout.row_Post, listboard);
@@ -298,14 +313,30 @@ namespace WordLearning
 
             public void OnDataChange(DataSnapshot snapshot)
             {
-                listtitle = new List<string>();
+                listtitle = new List<(string,DateTime)>();
                 foreach (DataSnapshot dss in snapshot.Children.ToEnumerable())
-                {
-                    listtitle.Add(XmlConvert.DecodeName(dss.Key));
+                { 
+                    DateTime datetime;
+                    var date = dss.GetValue(true) as JavaDictionary;
+                    var date2 = dss.GetValue(true) as Java.Lang.String;
+                    if (date == null && date2 != null)
+                    {
+                        DateTime.TryParse(XmlConvert.DecodeName(date2.ToString()), out datetime);
+                        listtitle.Add((XmlConvert.DecodeName(dss.Key), datetime));
+                    }
+                    else if (date != null)
+                    {
+                        var teststr = date.Keys as JavaSet;
+                        var datestr = teststr.OfType<string>().First();
+                        DateTime.TryParse(XmlConvert.DecodeName(datestr), out datetime);
+                        listtitle.Add((XmlConvert.DecodeName(dss.Key), datetime));
+                    }
+                    
                 }
+                listtitle = listtitle.OrderByDescending(elm => elm.Item2).ToList();
                 if (question_bulletin_board.mode == Mode.Title)
                 {
-                    listView.Adapter = new ArrayAdapter(question_bulletin_board, Android.Resource.Layout.SimpleListItem1, listtitle);
+                    listView.Adapter = new ArrayAdapter_Title(question_bulletin_board, Resource.Layout.row_Post, listtitle);
                 }
             }
         }
@@ -314,21 +345,20 @@ namespace WordLearning
     /// <summary>
     /// Array adapter board.
     /// </summary>
-    public class ArrayAdapter_Post : CustomArrayAdapter
+    public class ArrayAdapter_Title : CustomArrayAdapter
     {
-        List<(string,string)> list;
+        List<(string,DateTime)> list;
         Question_bulletin_board question_Bulletin_Board;
-        public ArrayAdapter_Post(Context context, int resource, IList objects) : base(context, resource, objects)
+        public ArrayAdapter_Title(Context context, int resource, IList objects) : base(context, resource, objects)
         {
-            list = (List<(string, string)>)objects;
+            list = (List<(string, DateTime)>)objects;
             question_Bulletin_Board = context as Question_bulletin_board;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             if (!Utility.MultipleActivityFlag) return new View(question_Bulletin_Board);
-            (string,string) item = new ValueTuple<string,string>();
-            ListView listView = (ListView)parent;
+            //_ = new ValueTuple<string, string>();
             if (list != null)
             {
                 View view;
@@ -341,14 +371,53 @@ namespace WordLearning
                     view = Inflater.Inflate(layoutid, null);
                     view.SetPaddingRelative(48, 48, 48, 48);
                 }
-                item = list[position];
-                TextView text = null;
+                (string, DateTime) item = list[position];
+                TextView text = view.FindViewById<TextView>(Resource.Id.tvRow_Post);
                 //TextView HiddenField = null;
-                TextView date = null;
-                text = view.FindViewById<TextView>(Resource.Id.tvRow_Post);
-                date = view.FindViewById<TextView>(Resource.Id.tvDate_row_Post);
-                text.Text = item.Item2;
-                date.Text = item.Item1;
+                TextView date = view.FindViewById<TextView>(Resource.Id.tvDate_row_Post);
+                text.Text = item.Item1;
+                date.Text = item.Item2.ToString();
+                return view;
+            }
+            return base.GetView(position, convertView, parent);
+        }
+    }
+
+    /// <summary>
+    /// Array adapter board.
+    /// </summary>
+    public class ArrayAdapter_Post : CustomArrayAdapter
+    {
+        List<(string, string,DateTime)> list;
+        Question_bulletin_board question_Bulletin_Board;
+        public ArrayAdapter_Post(Context context, int resource, IList objects) : base(context, resource, objects)
+        {
+            list = (List<(string, string,DateTime)>)objects;
+            question_Bulletin_Board = context as Question_bulletin_board;
+        }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            if (!Utility.MultipleActivityFlag) return new View(question_Bulletin_Board);
+            //_ = new ValueTuple<string, string>();
+            if (list != null)
+            {
+                View view;
+                if (convertView != null)
+                {
+                    view = convertView;
+                }
+                else
+                {
+                    view = Inflater.Inflate(layoutid, null);
+                    view.SetPaddingRelative(48, 48, 48, 48);
+                }
+                (string, string,DateTime) item = list[position];
+                TextView text = view.FindViewById<TextView>(Resource.Id.tvRow_Post);
+                //TextView HiddenField = null;
+                TextView date = view.FindViewById<TextView>(Resource.Id.tvDate_row_Post);
+                text.Text = item.Item1;
+                date.Text = item.Item2 + "   " + item.Item3.ToString();
                 return view;
             }
             return base.GetView(position, convertView, parent);
