@@ -84,7 +84,7 @@ namespace WordLearning
             var titlename = XmlConvert.EncodeName(title.TrimStart('(').TrimEnd(')').Split(',')[0]);
             var titledate = title.TrimStart('(').TrimEnd(')').Split(',')[1].Trim();
             DateTime.TryParse(titledate, null, System.Globalization.DateTimeStyles.AssumeLocal | System.Globalization.DateTimeStyles.AdjustToUniversal, out dateTime);
-            titledate = XmlConvert.EncodeName(dateTime.ToString());
+            titledate = XmlConvert.EncodeName(dateTime.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-us")));
             var test = mDatabase.Child(titlename).Child(titledate);
             position = e.Position;
             selecttitle = titlename;
@@ -104,7 +104,7 @@ namespace WordLearning
             TextInputEditText textInputEditText = dlg.FindViewById<TextInputEditText>(Constant.FreeDlgId2);
             if (string.IsNullOrEmpty(editText.Text)) return;
             if (string.IsNullOrEmpty(textInputEditText.Text)) textInputEditText.Text = "Guest";
-            string nowtime = DateTime.Now.ToUniversalTime().ToString();
+            string nowtime = DateTime.UtcNow.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-us"));
             await test.Child(XmlConvert.EncodeName(nowtime)).SetValueAsync(string.Empty); //SetValue(XmlConvert.EncodeName(editText.Text));
             await test.Child(XmlConvert.EncodeName(nowtime)).Child(XmlConvert.EncodeName(textInputEditText.Text)).SetValueAsync(XmlConvert.EncodeName(editText.Text));
             test.AddValueEventListener(new listboardevent(this));
@@ -234,8 +234,17 @@ namespace WordLearning
             var dlg = sender as Android.Support.V7.App.AlertDialog;
             TextInputEditText textInputEditText = dlg.FindViewById<TextInputEditText>(Constant.FreeDlgId);
             if (string.IsNullOrEmpty(textInputEditText.Text)) return;
+            if (listtitle.Select(p => p.Item1).Contains(textInputEditText.Text))
+            {
+                var dlg2 = new Android.Support.V7.App.AlertDialog.Builder(this);
+                dlg2.SetMessage(Message.AnotherTitle[Utility.language]);
+                dlg2.SetPositiveButton("OK",(s1,e1) => { dlg.Show(); });
+                dlg2.Show();
+                return;
+            }
             await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).SetValueAsync(string.Empty);
-            await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).Child(XmlConvert.EncodeName(DateTime.Now.ToUniversalTime().ToString())).SetValueAsync(string.Empty);
+            string datenow = DateTime.UtcNow.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-us"));
+            await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).Child(XmlConvert.EncodeName(datenow)).SetValueAsync(string.Empty);
             test.AddValueEventListener(new listtitleevent(this));
         }
 
@@ -428,5 +437,21 @@ namespace WordLearning
             }
             return base.GetView(position, convertView, parent);
         }
+    }
+
+    public static class Message
+    {
+        public static Dictionary<string, string> AnotherTitle = new Dictionary<string, string>()
+            {
+                {"日本語","タイトルが重複しています。他のタイトル名に変更して下さい。"},
+                {"English","Title is duplicated.Please set another title."},
+                {"繁體中文","標題是重複的。請設置另一個標題。"},
+                {"简体中文","标题重复。请设置另一个标题。"},
+                {"Deutsch","Titel ist doppelt vorhanden. Bitte setzen Sie einen anderen Titel."},
+                {"Français","Le titre est dupliqué. Veuillez définir un autre titre."},
+                {"한국어","제목이 중복되었습니다. 다른 제목을 설정하십시오."},
+                {"русский","Название дублируется.Пожалуйста, установите другое название."},
+                {"इंडिया","शीर्षक डुप्लिकेट है। कृपया एक और शीर्षक सेट करें।"}
+            };
     }
 }
