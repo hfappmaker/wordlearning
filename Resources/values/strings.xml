@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
            xmlns:local="http://schemas.android.com/apk/res-auto">
 <string name="app_name">WordLearning</string>
@@ -7,6 +7,7 @@
 <string name="Themecolor_Settings">Theme color</string>
 <string name="CSVfile_Settings">CSV file</string>
 <string name="Question_bulletin_board">Question bulletin board</string>
+<string name="ImportFromImage">ImportFromImage</string>
 <string-array name="array_Backup_And_Recover">
 <item android:id="@+id/it_CreateBackup">Create backup</item>
 <item>Recover from backup</item>
@@ -19,6 +20,9 @@
 </string-array>
 <string-array name="array_Question_bulletin_board">
 <item>Question bulletin board</item>
+</string-array>
+<string-array name="array_ImportFromImage">
+<item>ImportFromImage</item>
 </string-array>
 <!--Dialog_CreateNewTag-->
 <string name="square_Dialog_CreateNewTag">Square</string>

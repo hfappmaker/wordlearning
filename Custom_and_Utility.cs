@@ -17,6 +17,9 @@ using System.Xml;
 using Android.Graphics;
 using Android.Content.Res;
 using Android.Content.PM;
+using Android.Support.V7.Widget;
+using static Android.Support.V7.Widget.RecyclerView;
+using Java.Lang;
 //using Java.Util;
 
 namespace WordLearning
@@ -214,7 +217,8 @@ namespace WordLearning
                             {
                                 ItemClickeventHandler = System.Delegate.CreateDelegate(typeof(EventHandler<ItemClickEventArgs>), this, GetType().GetMethod(Id.Name + "_ItemClick")) as EventHandler<ItemClickEventArgs>;
                             }
-                            catch{ }
+                            catch
+                            { }
                             if (ItemClickeventHandler != null) 
                             {
                                 listView.ItemClick += ItemClickeventHandler;
@@ -224,7 +228,8 @@ namespace WordLearning
                             {
                                 ItemLongClickeventHandler = System.Delegate.CreateDelegate(typeof(EventHandler<ItemLongClickEventArgs>), this, GetType().GetMethod(Id.Name + "_ItemLongClick")) as EventHandler<ItemLongClickEventArgs>; 
                             }
-                            catch { }
+                            catch
+                            { }
                             if (ItemLongClickeventHandler != null)
                             {
                                 listView.ItemLongClick += ItemLongClickeventHandler;
@@ -372,6 +377,17 @@ namespace WordLearning
         {
             string defaultlanguage;
             string country;
+            Dictionary<string, string> languagedict = new Dictionary<string, string>()
+            {
+                { "ja","日本語" },
+                { "en","English" },
+                { "zh","简体中文" },
+                { "de","Deutsch" },
+                { "fr","Français" },
+                { "ko","한국어" },
+                { "ru","русский" },
+                { "in","English" }
+            };
 
             // ロケールの取得
             using (Java.Util.Locale locale = Java.Util.Locale.GetDefault(Java.Util.Locale.Category.Display))
@@ -379,45 +395,18 @@ namespace WordLearning
                 defaultlanguage = locale.Language;
                 country = locale.Country;
             }
-
-            if (defaultlanguage.Equals("ja"))
+            if (languagedict.ContainsKey(defaultlanguage))
             {
-                language = "日本語";
+                language = languagedict[defaultlanguage];
+                if(language == "zh")
+                {
+                    if(country.Equals("TW") || country.Equals("HK"))
+                    {
+                        language = "繁體中文";
+                    }
+                }
             }
-            else if (defaultlanguage.Equals("en"))
-            {
-                language = "English";
-            }
-            else if ((defaultlanguage.Equals("zh")) && (country.Equals("CN")))
-            {
-                language = "简体中文";
-            }
-            else if ((defaultlanguage.Equals("zh")) && ((country.Equals("TW")) || (country.Equals("HK"))))
-            {
-                language = "繁體中文";
-            }
-            else if (defaultlanguage.Equals("de")) 
-            {
-                language = "Deutsch";
-            }
-            else if (defaultlanguage.Equals("fr"))
-            {
-                language = "Français";
-            }
-            else if(defaultlanguage.Equals("ko"))
-            {
-                language = "한국어";
-            }
-            else if (defaultlanguage.Equals("ru"))
-            {
-                language = "русский";
-            }
-            else if (defaultlanguage.Equals("in"))
-            {
-                language = "इंडिया";
-                language = "English";
-            }
-            else 
+            else
             {
                 language = "English";
             }
@@ -515,8 +504,34 @@ namespace WordLearning
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-                return base.GetView(position,convertView,parent);
+            return base.GetView(position,convertView,parent);
         }
+    }
+    
+    public abstract class RecyclerAdapter : RecyclerView.Adapter
+    {
+        private readonly Context mContext;
+        public event EventHandler<int> ImageClick;
+        public event EventHandler<int> TextClick;
+        public int layoutid;
+        //public LayoutInflater Inflater;
+        protected RecyclerAdapter(Context context,int resource, IList objects)
+        {
+            mContext = context;
+            layoutid = resource;
+            //Inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
+        }
+
+        protected void OnImageClick(int position)
+        {
+            ImageClick?.Invoke(this, position);
+        }
+
+        protected void OnTextClick(int position)
+        {
+            TextClick?.Invoke(this, position);
+        }
+
     }
 
     public static class XExtensions
@@ -540,7 +555,7 @@ namespace WordLearning
                 var currentNamespace = e.Name.Namespace;
 
                 string name;
-                if (String.IsNullOrEmpty(currentNamespace.ToString()))
+                if (string.IsNullOrEmpty(currentNamespace.ToString()))
                 {
                     name = e.Name.ToString();
                 }

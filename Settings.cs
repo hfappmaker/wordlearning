@@ -1,5 +1,4 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Widget;
 using Android.OS;
 using System.IO;
@@ -20,6 +19,12 @@ using Android.Provider;
 using File = System.IO.File;
 using Android.Database;
 using System.Xml;
+using Firebase.ML.Vision.Common;
+using Firebase.ML.Vision;
+using Android.Gms.Tasks;
+using Java.Lang;
+using Firebase.ML.Vision.Text;
+using Android.Support.V7.Widget;
 
 namespace WordLearning
 {
@@ -99,23 +104,24 @@ namespace WordLearning
             var dlgChangethemecolor = new Android.Support.V7.App.AlertDialog.Builder(this);
             var xml = XDocument.Load(Utility.WordListPath);
             XElement Themecolor_xml = xml.Root.Element("Themecolor");
-            int[] oldcolor = {defaultthemecolor[0],defaultthemecolor[1],defaultthemecolor[2]};
+            int[] oldcolor = { defaultthemecolor[0], defaultthemecolor[1], defaultthemecolor[2] };
             if (Themecolor_xml != null)
             {
-                oldcolor = new int[]{int.Parse(Themecolor_xml.Element("Red").Value), int.Parse(Themecolor_xml.Element("Green").Value), int.Parse(Themecolor_xml.Element("Blue").Value)};
+                oldcolor = new int[] { int.Parse(Themecolor_xml.Element("Red").Value), int.Parse(Themecolor_xml.Element("Green").Value), int.Parse(Themecolor_xml.Element("Blue").Value) };
             }
             seekBars[0] = layout.FindViewById<SeekBar>(Resource.Id.Sb_Red_Dialog_Changethemecolor);
             seekBars[1] = layout.FindViewById<SeekBar>(Resource.Id.Sb_Green_Dialog_Changethemecolor);
             seekBars[2] = layout.FindViewById<SeekBar>(Resource.Id.Sb_Blue_Dialog_Changethemecolor);
             Color[] Thumbcolor = { Color.Red, Color.Green, Color.Blue };
-            int[][] ProgressTintColor = {new int[]{255,0,0},new int[]{0,255,0},new int[]{0,0,255}};
-            for (int i = 0; i < seekBars.Count();i++)
+            int[][] ProgressTintColor = { new int[] { 255, 0, 0 }, new int[] { 0, 255, 0 }, new int[] { 0, 0, 255 } };
+            for (int i = 0; i < seekBars.Count(); i++)
             {
                 seekBars[i].Tag = i;
                 seekBars[i].Progress = oldcolor[i];
                 seekBars[i].ProgressTintList = ColorStateList.ValueOf(Color.Argb(seekBars[i].Progress, ProgressTintColor[i][0], ProgressTintColor[i][1], ProgressTintColor[i][2]));
                 seekBars[i].ThumbTintList = ColorStateList.ValueOf(Thumbcolor[i]);
-                seekBars[i].ProgressChanged += (_s, _e) => {
+                seekBars[i].ProgressChanged += (_s, _e) =>
+                {
                     _e.SeekBar.ProgressTintList = ColorStateList.ValueOf(Color.Argb(_e.Progress, ProgressTintColor[(int)_e.SeekBar.Tag][0], ProgressTintColor[(int)_e.SeekBar.Tag][1], ProgressTintColor[(int)_e.SeekBar.Tag][2]));
                     themecolor = Color.Rgb(seekBars[0].Progress, seekBars[1].Progress, seekBars[2].Progress);
                     themecolor_dark = Color.Rgb((int)(seekBars[0].Progress * 0.8), (int)(seekBars[1].Progress * 0.8), (int)(seekBars[2].Progress * 0.8));
@@ -128,8 +134,9 @@ namespace WordLearning
             dlgChangethemecolor.SetMessage(Message.Changethemecolor[Utility.language]);
             dlgChangethemecolor.SetView(layout);
             dlgChangethemecolor.SetNegativeButton("OK", Setnewthemecolor);
-            dlgChangethemecolor.SetPositiveButton("CANCEL", (_s, _e) => {
-                themecolor = Color.Rgb(oldcolor[0],oldcolor[1],oldcolor[2]);
+            dlgChangethemecolor.SetPositiveButton("CANCEL", (_s, _e) =>
+            {
+                themecolor = Color.Rgb(oldcolor[0], oldcolor[1], oldcolor[2]);
                 themecolor_dark = Color.Rgb((int)(oldcolor[0] * 0.8), (int)(oldcolor[1] * 0.8), (int)(oldcolor[2] * 0.8));
                 toolbar.BackgroundTintList = ColorStateList.ValueOf(themecolor);
                 Window.SetStatusBarColor(themecolor_dark);
@@ -169,19 +176,19 @@ namespace WordLearning
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void lv_Settings_Changehomename_ItemClick(object sender, ItemClickEventArgs e) 
+        public void lv_Settings_Changehomename_ItemClick(object sender, ItemClickEventArgs e)
         {
 
-         }
+        }
         /// <summary>
         /// Lvs the settings changehomename item long click.
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">E.</param>
-        public void lv_Settings_Changehomename_ItemLongClick(object sender, ItemLongClickEventArgs e) 
+        public void lv_Settings_Changehomename_ItemLongClick(object sender, ItemLongClickEventArgs e)
         {
 
-         }
+        }
         #endregion
 
         #region listview(CSVfile import) Click
@@ -192,12 +199,12 @@ namespace WordLearning
             intent.AddCategory(Intent.CategoryOpenable);
             intent.SetType("*/*");
             intent.PutExtra(Intent.ExtraAllowMultiple, true);
-            StartActivityForResult(Intent.CreateChooser(intent, "Select csvfile"), 123);
+            StartActivityForResult(Intent.CreateChooser(intent, "Select csvfile"), (int)RequestCode.SELECT_CSVFILE);
         }
 
-        public void lv_Settings_CSVfileimport_ItemLongClick(object sender,ItemLongClickEventArgs e) 
+        public void lv_Settings_CSVfileimport_ItemLongClick(object sender, ItemLongClickEventArgs e)
         {
-        
+
 
         }
 
@@ -205,10 +212,10 @@ namespace WordLearning
         {
             base.OnActivityResult(requestCode, resultCode, data);
             contentdata.Clear();
-            if (requestCode == 123 && resultCode == Result.Ok) 
+            if (requestCode == (int)RequestCode.SELECT_CSVFILE && resultCode == Result.Ok)
             {
                 var uri = data.Data;
-                if(uri != null) //１つだけ選択した場合
+                if (uri != null) //１つだけ選択した場合
                 {
                     (string, List<string[]>) csvdata = new ValueTuple<string, List<string[]>>
                     {
@@ -293,7 +300,7 @@ namespace WordLearning
                             if (cursor.MoveToFirst())
                             {
                                 name = cursor.GetString(0);
-                                if(name.Length > 3) 
+                                if (name.Length > 3)
                                 {
                                     if (name.Substring(name.Length - 4, 4) != ".csv")
                                     {
@@ -356,6 +363,23 @@ namespace WordLearning
                     dlg.Show();
                 }
             }
+            else if (requestCode == (int)RequestCode.RESLUT_CAMERA && resultCode == Result.Ok)
+            {
+                if (data.Extras != null)
+                {
+                    Bitmap bitmap = (Bitmap)data.Extras.Get("data");
+                    if (bitmap != null)
+                    {
+                        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.FromBitmap(bitmap);
+                        var detector = FirebaseVision.Instance.OnDeviceTextRecognizer;
+                        var result = detector.ProcessImage(firebaseVisionImage).AddOnSuccessListener(new Recognizertext());
+                        // 画像サイズを計測
+                        int bmpWidth = bitmap.Width;
+                        int bmpHeight = bitmap.Height;
+                    }
+                    // dataから画像を取り出す
+                }
+            }
         }
 
         private void Addcsvdata(object sender, DialogClickEventArgs e)
@@ -366,24 +390,27 @@ namespace WordLearning
             LayoutInflater Inflater;
             Inflater = (LayoutInflater)GetSystemService(LayoutInflaterService);
             View layout = Inflater.Inflate(Resource.Layout.Dialog_Move_Start, (ViewGroup)FindViewById(Resource.Id.ll_Dialog_Move_Start));
-            ListView listFolder = layout.FindViewById<ListView>(Resource.Id.lv_Dialog_Move_Start);
-            listFolder.Adapter = new ArrayAdapter_Start_Move(this, Resource.Layout.row, AllFolder.ToList());
-            listFolder.ItemClick += (_s, _e) =>
-            {
+            //ListView listFolder = layout.FindViewById<ListView>(Resource.Id.lv_Dialog_Move_Start);
+            RecyclerView listFolder = layout.FindViewById<RecyclerView>(Resource.Id.lv_Dialog_Move_Start);
+            //listFolder.Adapter = new ArrayAdapter_Start_Move(this, Resource.Layout.row, AllFolder.ToList());
+            listFolder.SetLayoutManager(new LinearLayoutManager(this));
+            listFolder.SetAdapter(new ArrayAdapter_Start_Move(this, Resource.Layout.row_SelectDestination, AllFolder.ToList(),Utility.cd));
+            //listFolder.ItemClick += (_s, _e) =>
+            //{
 
-                if (listFolder.GetTag(Constant.FreeTagKey) != null)
-                {
-                    int previousselectpositon = (int)listFolder.GetTag(Constant.FreeTagKey) - listFolder.FirstVisiblePosition;
-                    if (previousselectpositon >= 0 && previousselectpositon <= listFolder.LastVisiblePosition)
-                    {
-                        listFolder.GetChildAt(previousselectpositon).SetBackgroundColor(Constant.SelectColor[false]);
-                    }
-                }
-                listFolder.SetTag(Constant.FreeTagKey, _e.Position);
-                listFolder.GetChildAt(_e.Position - listFolder.FirstVisiblePosition).SetBackgroundColor(Color.Green);
-                position_dlg = _e.Position;
-                return;
-            };
+            //    if (listFolder.GetTag(Constant.FreeTagKey) != null)
+            //    {
+            //        int previousselectpositon = (int)listFolder.GetTag(Constant.FreeTagKey) - listFolder.FirstVisiblePosition;
+            //        if (previousselectpositon >= 0 && previousselectpositon <= listFolder.LastVisiblePosition)
+            //        {
+            //            listFolder.GetChildAt(previousselectpositon).SetBackgroundColor(Constant.SelectColor[false]);
+            //        }
+            //    }
+            //    listFolder.SetTag(Constant.FreeTagKey, _e.Position);
+            //    listFolder.GetChildAt(_e.Position - listFolder.FirstVisiblePosition).SetBackgroundColor(Color.Green);
+            //    position_dlg = _e.Position;
+            //    return;
+            //};
             dlgMove.SetMessage(Message.Selectplace[Utility.language]);
             dlgMove.SetPositiveButton(Message.Add[Utility.language], Addcsvdata2);
             dlgMove.SetNegativeButton("CANCEL", (_s, _e) => { });
@@ -469,6 +496,22 @@ namespace WordLearning
 
         #endregion
 
+        #region listview(ImportFromImage) Click
+
+
+        public void lv_Settings_ImportFromImage_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            CameraCheck();
+            //FirebaseVisionImage
+        }
+
+        public void lv_Settings_ImportFromImage_ItemLongClick(object sender, ItemLongClickEventArgs e)
+        {
+
+
+        }
+        #endregion
+
         #region seekbar
 
         #endregion
@@ -493,7 +536,7 @@ namespace WordLearning
             Permission permission = CheckSelfPermission(Manifest.Permission.WriteExternalStorage);
             if (permission != Permission.Granted)
             {
-                RequestPermissions(new string[] { Manifest.Permission.WriteExternalStorage }, 1);
+                RequestPermissions(new string[] { Manifest.Permission.WriteExternalStorage }, (int)PermissionRequestCode.Create_Backup);
             }
             else
             {
@@ -554,7 +597,7 @@ namespace WordLearning
             Permission permission = CheckSelfPermission(Manifest.Permission.WriteExternalStorage);
             if (permission != Permission.Granted)
             {
-                RequestPermissions(new string[] { Manifest.Permission.WriteExternalStorage }, 2);
+                RequestPermissions(new string[] { Manifest.Permission.WriteExternalStorage }, (int)PermissionRequestCode.RecoverfromBackup);
             }
             else
             {
@@ -586,20 +629,20 @@ namespace WordLearning
                     {
                         Themecolorelm.Remove();
                     }
-                    if(Tagcolorelm != null)
+                    if (Tagcolorelm != null)
                     {
                         Tagcolorelm.Remove();
                     }
                     XDocument.Load(Utility.Backuppath).Root.Elements().ToList().ForEach(elm =>
                     {
-                        if(elm.Name != "Folder")
+                        if (elm.Name != "Folder")
                         {
                             xelmnow.Add(elm);
                         }
                     });
-                    foreach(XElement elm in xelmBU.Elements())
+                    foreach (XElement elm in xelmBU.Elements())
                     {
-                        if(xelmnow.Element("Folder").Elements().Count() > 1000)
+                        if (xelmnow.Element("Folder").Elements().Count() > 1000)
                         {
                             toomanyflag = true;
                             break;
@@ -617,7 +660,7 @@ namespace WordLearning
                     Window.SetStatusBarColor(themecolor_dark);
                     Window.SetNavigationBarColor(themecolor);
                     toolbar.BackgroundTintList = ColorStateList.ValueOf(themecolor);
-                    if(toomanyflag)
+                    if (toomanyflag)
                     {
                         dlgResult.SetMessage(Message.Restorecompletedtoomanyfolder[Utility.language]);
                     }
@@ -629,7 +672,7 @@ namespace WordLearning
                     dlgResult.SetTitle(Message.Error[Utility.language]);
                     dlgResult.SetMessage(Message.RequireStorageAccess[Utility.language]);
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                     dlgResult.SetTitle(Message.Error[Utility.language]);
                     dlgResult.SetMessage(Message.Restorefaliure[Utility.language]);
@@ -647,14 +690,14 @@ namespace WordLearning
         /// </summary>
         /// <param name="xelm">Xelm.</param>
         /// <param name="xelmBU">Xelm bu.</param>
-        private void Recover(XElement xelm,XElement xelmBU)
+        private void Recover(XElement xelm, XElement xelmBU)
         {
             bool duplicateflag = false;
-            foreach(XElement elmBU in xelmBU.Elements())
+            foreach (XElement elmBU in xelmBU.Elements())
             {
-                foreach(XElement elm in xelm.Elements())
+                foreach (XElement elm in xelm.Elements())
                 {
-                    if(elmBU.Name == elm.Name && elmBU.Attribute("type").Value == elm.Attribute("type").Value)
+                    if (elmBU.Name == elm.Name && elmBU.Attribute("type").Value == elm.Attribute("type").Value)
                     {
                         duplicateflag = true;
                         if (elmBU.Attribute("type").Value == "Wordlist")
@@ -663,7 +706,7 @@ namespace WordLearning
                             duplicateflag = false;
                             break;
                         }
-                        else if(elmBU.Attribute("type").Value == "Themecolor")
+                        else if (elmBU.Attribute("type").Value == "Themecolor")
                         {
                             xelmnow.Elements().Single((p) => { return p.Attribute("type").Value == "Themecolor"; }).Remove();
                             duplicateflag = false;
@@ -681,6 +724,29 @@ namespace WordLearning
             }
 
         }
+        /// <summary>
+        /// Check whether Camera is enabled or not.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
+        private void CameraCheck()
+        {
+            Permission permission = CheckSelfPermission(Manifest.Permission.Camera);
+            if (permission != Permission.Granted)
+            {
+                RequestPermissions(new string[] { Manifest.Permission.Camera }, (int)PermissionRequestCode.ImportFromImage);
+            }
+            else
+            {
+                ImportFromImage();
+            }
+        }
+
+        private void ImportFromImage()
+        {
+            Intent intent = new Intent(MediaStore.ActionImageCapture);
+            StartActivityForResult(intent, (int)RequestCode.RESLUT_CAMERA);
+        }
         #endregion
 
         /// <summary>
@@ -695,7 +761,7 @@ namespace WordLearning
                 case Android.Resource.Id.Home:
                     if (recoverflag)
                     {
-                        Utility.cd = new List<int>(){0,0};
+                        Utility.cd = new List<int>() { 0, 0 };
                     }
                     Finish();
                     break;
@@ -727,13 +793,17 @@ namespace WordLearning
         /// <param name="grantResults">Grant results.</param>
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            switch(requestCode)
+            PermissionRequestCode prc = (PermissionRequestCode)requestCode;
+            switch (prc)
             {
-                case 1:
+                case PermissionRequestCode.Create_Backup:
                     CreateBackup();
                     break;
-                case 2:
+                case PermissionRequestCode.RecoverfromBackup:
                     RecoverfromBackup();
+                    break;
+                case PermissionRequestCode.ImportFromImage:
+                    ImportFromImage();
                     break;
                 default:
                     base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -819,7 +889,7 @@ namespace WordLearning
                 {"한국어","추가가 완료되었습니다."},
                 {"русский","Дополнение было завершено"},
                 {"इंडिया",""}
-            }; 
+            };
             public static Dictionary<string, string> CreateBackupcomplete = new Dictionary<string, string>()
             {
                 {"日本語","バックアップの作成に成功しました。"},
@@ -843,7 +913,7 @@ namespace WordLearning
                 {"한국어","오류"},
                 {"русский","ошибка"},
                 {"इंडिया",""}
-            }; 
+            };
             public static Dictionary<string, string> RequireStorageAccess = new Dictionary<string, string>()
             {
                 {"日本語","復元に失敗しました。\nストレージへのアクセスを許可して下さい。"},
@@ -867,7 +937,7 @@ namespace WordLearning
                 {"한국어","백업을 만들지 못했습니다."},
                 {"русский","Не удалось создать резервную копию."},
                 {"इंडिया",""}
-            }; 
+            };
             public static Dictionary<string, string> Restorecompletedtoomanyfolder = new Dictionary<string, string>()
             {
                 {"日本語","復元に成功しました。(フォルダ数が多いため、一部のみ復元しました。)"},
@@ -904,7 +974,7 @@ namespace WordLearning
                 {"한국어","복원 중 오류가 발생했습니다. 백업이 끊어졌습니다."},
                 {"русский","Произошла ошибка во время восстановления. Бэкап сломан."},
                 {"इंडिया",""}
-            }; 
+            };
             public static Dictionary<string, string> Noneofbackup = new Dictionary<string, string>()
             {
                 {"日本語","バックアップが存在しません。"},
@@ -929,6 +999,70 @@ namespace WordLearning
                 {"русский",""},
                 {"इंडिया",""}
             };
+
+
         }
+
+        private enum RequestCode
+        {
+            RESLUT_CAMERA = 0,
+            SELECT_CSVFILE = 1
+        };
+
+        private enum PermissionRequestCode
+        {
+            Create_Backup = 0,
+            RecoverfromBackup = 1,
+            ImportFromImage = 2
+        };
+
+        private class Recognizertext : Java.Lang.Object, IOnSuccessListener
+        {
+            //IntPtr IJavaObject.Handle => throw new NotImplementedException();
+            IntPtr IJavaObject.Handle => base.Handle;
+
+            void IOnSuccessListener.OnSuccess(Java.Lang.Object result)
+            {
+                var rslt = result as FirebaseVisionText;
+                //throw new NotImplementedException();
+            }
+
+            #region IDisposable Support
+            private bool disposedValue = false; // 重複する呼び出しを検出するには
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (!disposedValue)
+                {
+                    if (disposing)
+                    {
+                        // TODO: マネージ状態を破棄します (マネージ オブジェクト)。
+                    }
+
+                    // TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下のファイナライザーをオーバーライドします。
+                    // TODO: 大きなフィールドを null に設定します。
+
+                    disposedValue = true;
+                }
+            }
+
+            // TODO: 上の Dispose(bool disposing) にアンマネージ リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします。
+            // ~Recognizertext()
+            // {
+            //   // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
+            //   Dispose(false);
+            // }
+
+            // このコードは、破棄可能なパターンを正しく実装できるように追加されました。
+            void IDisposable.Dispose()
+            {
+                // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
+                Dispose(true);
+                // TODO: 上のファイナライザーがオーバーライドされる場合は、次の行のコメントを解除してください。
+                // GC.SuppressFinalize(this);
+            }
+            #endregion
+        }
+
     }
 }

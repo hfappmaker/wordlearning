@@ -55,14 +55,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:text="@string/Cancel_Wordlist_Editword"
-            android:background="@android:color/transparent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnCancel_Wordlist_Editword"
-            android:tag="Register" />
+		<Button
+			android:text="@string/Cancel_Wordlist_Editword"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:id="@+id/btnCancel_Wordlist_Editword"
+			android:tag="Register"
+			android:background="#00000000"
+            android:foreground="?attr/selectableItemBackground"/>
         <Button
             android:text="@string/Register_Wordlist_Editword"
             android:background="@android:color/transparent"
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/btnRegister_Wordlist_Editword"
+            android:foreground="?attr/selectableItemBackground"
             android:tag="Register" />
     </LinearLayout>
 </LinearLayout>

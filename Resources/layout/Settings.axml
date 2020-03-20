@@ -67,19 +67,18 @@
         android:layout_width="match_parent"
         android:entries="@array/array_Question_bulletin_board"
         android:fadeScrollbars="false"/>
-<!--    <TextView>
-        android:text="ホーム名の変更"
+<!--    <TextView
+        android:text="@string/ImportFromImage"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/material_deep_teal_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtChangehomename"
-    </TextView>
+        android:id="@+id/txtImportFromImage"/>
     <ListView
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/lv_Settings_Changehomename"
+        android:id="@+id/lv_Settings_ImportFromImage"
         android:layout_width="match_parent"
-        android:entries="@array/array_Changehomename"
+        android:entries="@array/array_ImportFromImage"
         android:fadeScrollbars="false"/>-->
 </LinearLayout>

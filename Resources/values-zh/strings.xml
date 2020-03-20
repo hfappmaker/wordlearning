@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
            xmlns:local="http://schemas.android.com/apk/res-auto">
 <string name="app_name">WordLearning</string>
@@ -6,6 +6,8 @@
 <string name="BackupandRecover_Settings">备份/恢复</string>
 <string name="Themecolor_Settings">主题色</string>
 <string name="CSVfile_Settings">CSV文件</string>
+<string name="Question_bulletin_board">Question bulletin board</string>
+<string name="ImportFromImage">ImportFromImage</string>
 <string-array name="array_Backup_And_Recover">
 <item android:id="@+id/it_CreateBackup">创建备份</item>
 <item>从备份中恢复</item>
@@ -13,18 +15,12 @@
 <string-array name="array_Changethemecolor">
 <item>主题颜色的变化</item>
 </string-array>
-<!--<string-array name="array_Settingvoicelanguage">
-<item>音声出力の言語変更</item>
-</string-array>
-<string-array name="array_SettingAutomode">
-<item>自動再生の間隔を変更（秒単位）</item>
-</string-array>-->
 <string-array name="array_CSVfileimport">
 <item>导入CSV文件</item>
 </string-array>
-<!--<string-array name="array_Changehomename">
+<string-array name="array_Changehomename">
 <item>ホーム名の変更</item>
-</string-array>-->
+</string-array>
 <!--Dialog_CreateNewTag-->
 <string name="square_Dialog_CreateNewTag">广场</string>
 <string name="star_Dialog_CreateNewTag">星</string>

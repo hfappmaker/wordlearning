@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
            xmlns:local="http://schemas.android.com/apk/res-auto">
 <string name="app_name">自分で作る！単語帳メーカー</string>
@@ -7,6 +7,7 @@
 <string name="Themecolor_Settings">テーマカラー</string>
 <string name="CSVfile_Settings">CSVファイル</string>
 <string name="Question_bulletin_board">質問掲示板</string>
+<string name="ImportFromImage">画像から取り込み</string>
 <string-array name="array_Backup_And_Recover">
 <item android:id="@+id/it_CreateBackup">バックアップの作成</item>
 <item>バックアップから復元</item>
@@ -19,6 +20,9 @@
 </string-array>
 <string-array name="array_Question_bulletin_board">
 <item>質問掲示板</item>
+</string-array>
+<string-array name="array_ImportFromImage">
+<item>画像から取り込み</item>
 </string-array>
 <!--Dialog_CreateNewTag-->
 <string name="square_Dialog_CreateNewTag">四角</string>

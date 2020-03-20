@@ -12,6 +12,8 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 using Firebase.Database;
+using Firebase.Iid;
+using Firebase.ML.Vision.Common;
 using static Android.Widget.AdapterView;
 
 namespace WordLearning
@@ -234,6 +236,7 @@ namespace WordLearning
             var dlg = sender as Android.Support.V7.App.AlertDialog;
             TextInputEditText textInputEditText = dlg.FindViewById<TextInputEditText>(Constant.FreeDlgId);
             if (string.IsNullOrEmpty(textInputEditText.Text)) return;
+            //FirebaseVisionImage
             if (listtitle.Select(p => p.Item1).Contains(textInputEditText.Text))
             {
                 var dlg2 = new Android.Support.V7.App.AlertDialog.Builder(this);
@@ -244,6 +247,7 @@ namespace WordLearning
             }
             await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).SetValueAsync(string.Empty);
             string datenow = DateTime.UtcNow.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-us"));
+            var pp = FirebaseInstanceId.Instance.Id;
             await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).Child(XmlConvert.EncodeName(datenow)).SetValueAsync(string.Empty);
             test.AddValueEventListener(new listtitleevent(this));
         }

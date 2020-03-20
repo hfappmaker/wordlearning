@@ -61,29 +61,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:text="@string/Cancel_Wordlist_Addword"
-            android:background="@drawable/border"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/btnCancel_Wordlist_Addword"
-            android:tag="Cancel" />
-        <Button
-            android:text="@string/Register_Wordlist_Addword"
-            android:background="@drawable/border"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/btnRegister_Wordlist_Addword"
-            android:tag="Register" />
-        <Button
-            android:text="@string/Register_and_Next_Wordlist_Addword"
-            android:background="@drawable/border"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/btnRegister_and_Next_Wordlist_Addword"
-            android:tag="RegisterandNext" />
+		<Button
+			android:text="@string/Cancel_Wordlist_Addword"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:foreground="?attr/selectableItemBackground"
+			android:id="@+id/btnCancel_Wordlist_Addword"
+			android:tag="Cancel"
+			android:background="#00000000" />
+		<Button
+			android:text="@string/Register_Wordlist_Addword"
+			android:background="#00000000"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:foreground="?attr/selectableItemBackground"
+			android:id="@+id/btnRegister_Wordlist_Addword"
+			android:tag="Register" />
+		<Button
+			android:text="@string/Register_and_Next_Wordlist_Addword"
+			android:background="#00000000"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:foreground="?attr/selectableItemBackground"
+			android:id="@+id/btnRegister_and_Next_Wordlist_Addword"
+			android:tag="RegisterandNext" />
     </LinearLayout>
 </LinearLayout>

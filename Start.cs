@@ -3,7 +3,7 @@ using Android.App;
 using Android.Widget;
 using Android.OS;
 using System.IO;
-using System.Collections.Generic; // ← 必須
+using System.Collections.Generic;
 using Android.Content;
 using static Android.Widget.AdapterView;
 using Android.Views;
@@ -15,11 +15,12 @@ using System;
 using System.Xml;
 using System.Collections;
 using Android.Content.Res;
-//using static Android.Content.Res.Resources;
 using Android.Util;
 using Android.Runtime;
 using Firebase.Iid;
 using Android.Gms.Common;
+using static Android.Support.V7.Widget.RecyclerView;
+using Android.Support.V7.Widget;
 
 namespace WordLearning
 {
@@ -31,7 +32,7 @@ namespace WordLearning
         private ListView listView;
         private Dictionary<List<int>, XElement> AllFolder;
         private int position/* selectedposition on listview */;
-        private int position_dlg;
+        //private int position_dlg;
         private string Itemtype = "Wordlist";
         /// <summary>
         /// Run Method
@@ -172,7 +173,7 @@ namespace WordLearning
             SetlistView();
             IsPlayServicesAvailable();
             CreateNotificationChannel();
-            string h = FirebaseInstanceId.Instance.Token;
+            //string h = FirebaseInstanceId.Instance.Token;
         }
 
         void CreateNotificationChannel()
@@ -320,7 +321,7 @@ namespace WordLearning
         {
 
             Intent intent;
-            string h = FirebaseInstanceId.Instance.Token;
+            //string h = FirebaseInstanceId.Instance.Token;
             var xml = XDocument.Load(Utility.WordListPath);
             switch (item.ItemId)
             {
@@ -384,6 +385,8 @@ namespace WordLearning
                     dlgDeleteCheck.Show();
                     break;
                 case Resource.Id.action_move_Start_Deletemode:
+                    //2019.07.26 ExpandableListView
+                    //ExpandableListView expandableListView = new ExpandableListView(this);
                     var dlgMove = new Android.Support.V7.App.AlertDialog.Builder(this);
                     AllFolder = GetAllFolder(xml);
                     List<int> ChooseItemPath = new List<int>(Utility.cd);
@@ -402,41 +405,43 @@ namespace WordLearning
                                     {
                                         Utility.cd.RemoveAt(Utility.cd.Count - 1);
                                         return true;
-                                    };
+                                    }
                                 }
                                 Utility.cd.RemoveAt(Utility.cd.Count - 1);
                             }
                         }
                         return false;
                     };
-                    var AllFolder_exceptmyselfandparent = new List<KeyValuePair<List<int>, XElement>>((from folder in AllFolder
-                                                                                                       where (!folder.Key.SequenceEqual(Utility.cd) && !predicate(folder.Key))
-                                                                                                       select folder).ToList());
-                    AllFolder = new Dictionary<List<int>, XElement>(AllFolder_exceptmyselfandparent);
+                    //var AllFolder_exceptmyselfandparent = new List<KeyValuePair<List<int>, XElement>>((from folder in AllFolder
+                    //                                                                                   where (!folder.Key.SequenceEqual(Utility.cd) && !predicate(folder.Key))
+                    //                                                                                   select folder).ToList());
+                    //AllFolder = new Dictionary<List<int>, XElement>(AllFolder_exceptmyselfandparent);
                     LayoutInflater Inflater;
                     Inflater = (LayoutInflater)GetSystemService(LayoutInflaterService);
                     View layout = Inflater.Inflate(Resource.Layout.Dialog_Move_Start, (ViewGroup)FindViewById(Resource.Id.ll_Dialog_Move_Start));
-                    ListView listFolder = layout.FindViewById<ListView>(Resource.Id.lv_Dialog_Move_Start);
-                    listFolder.Adapter = new ArrayAdapter_Start_Move(this, Resource.Layout.row, AllFolder.ToList());
-                    listFolder.ItemClick += (_s, _e) =>
-                    {
+                    //ListView listFolder = layout.FindViewById<ListView>(Resource.Id.lv_Dialog_Move_Start);
+                    RecyclerView listFolder = layout.FindViewById<RecyclerView>(Resource.Id.lv_Dialog_Move_Start);
+                    listFolder.SetLayoutManager(new LinearLayoutManager(this));
+                    listFolder.SetAdapter(new ArrayAdapter_Start_Move(this, Resource.Layout.row_SelectDestination, AllFolder.ToList(),Utility.cd));
+                    //listFolder.ItemClick += (_s, _e) =>
+                    //{
 
-                        if (listFolder.GetTag(Constant.FreeTagKey) != null)
-                        {
-                            int previousselectpositon = (int)listFolder.GetTag(Constant.FreeTagKey) - listFolder.FirstVisiblePosition;
-                            if (previousselectpositon >= 0 && previousselectpositon <= listFolder.LastVisiblePosition)
-                            {
-                                listFolder.GetChildAt(previousselectpositon).SetBackgroundColor(Constant.SelectColor[false]);
-                            }
-                        }
-                        listFolder.SetTag(Constant.FreeTagKey, _e.Position);
-                        listFolder.GetChildAt(_e.Position - listFolder.FirstVisiblePosition).SetBackgroundColor(Color.Green);
-                        position_dlg = _e.Position;
-                        return;
-                    };
+                    //    if (listFolder.GetTag(Constant.FreeTagKey) != null)
+                    //    {
+                    //        int previousselectpositon = (int)listFolder.GetTag(Constant.FreeTagKey) - listFolder.FirstVisiblePosition;
+                    //        if (previousselectpositon >= 0 && previousselectpositon <= listFolder.LastVisiblePosition)
+                    //        {
+                    //            listFolder.GetChildAt(previousselectpositon).SetBackgroundColor(Constant.SelectColor[false]);
+                    //        }
+                    //    }
+                    //    listFolder.SetTag(Constant.FreeTagKey, _e.Position);
+                    //    listFolder.GetChildAt(_e.Position - listFolder.FirstVisiblePosition).SetBackgroundColor(Color.Green);
+                    //    position_dlg = _e.Position;
+                    //    return;
+                    //};
                     dlgMove.SetMessage(Message.Selectdestination[Utility.language]);
                     dlgMove.SetNegativeButton(Message.Wordofmove[Utility.language], Move);
-                    dlgMove.SetNeutralButton("CANCEL", (_s, _e) => { for (int i = 0; i < Utility.selectpositions.Count; i++) { Utility.selectpositions[i] = false; }; ChangeToolbarTransition(Transitionmode.ToInit); ResetlistView(); });
+                    dlgMove.SetNeutralButton("CANCEL", (_s, _e) => { for (int i = 0; i < Utility.selectpositions.Count; i++) { Utility.selectpositions[i] = false; } ChangeToolbarTransition(Transitionmode.ToInit); ResetlistView(); });
                     dlgMove.SetView(layout);
                     dlgMove.SetCancelable(false);
                     dlgMove.Show();
@@ -853,9 +858,10 @@ namespace WordLearning
         private void Move(object sender, DialogClickEventArgs e)
         {
             var dlg = (Android.Support.V7.App.AlertDialog)sender;
-            ListView listFolder = dlg.FindViewById<ListView>(Resource.Id.lv_Dialog_Move_Start);
+            RecyclerView listFolder = dlg.FindViewById<RecyclerView>(Resource.Id.lv_Dialog_Move_Start);
+            ArrayAdapter_Start_Move adapter = listFolder.GetAdapter() as ArrayAdapter_Start_Move;
             var xml = XDocument.Load(Utility.WordListPath);
-            if (AllFolder.ElementAt(position_dlg).Key.SequenceEqual(Utility.cd))
+            if (adapter.selectedfolderposition.SequenceEqual(Utility.cd))
             {
                 var dlgSameLocateAlart = new Android.Support.V7.App.AlertDialog.Builder(this);
                 dlgSameLocateAlart.SetMessage(Message.Movevalidate[Utility.language]);
@@ -864,13 +870,18 @@ namespace WordLearning
                 dlgSameLocateAlart.Show();
                 return;
             }
-            var xmlcdNode = Utility.GetXElement(AllFolder.ElementAt(position_dlg).Key, xml);
+            var xmlcdNode = Utility.GetXElement(adapter.selectedfolderposition, xml);
             for (int i = 0; i < Utility.selectpositions.Count; i++)
             {
                 if (Utility.selectpositions[i])
                 {
                     Utility.cd.Add(Utility.Start_Elements[i].Number);
-                    xmlcdNode.Add(Utility.GetXElement(Utility.cd, xml));
+
+                    if(!(adapter.selectedfolderposition.Count >= Utility.cd.Count &&
+                        adapter.selectedfolderposition.Take(Utility.cd.Count).SequenceEqual(Utility.cd)))
+                    {
+                        xmlcdNode.Add(Utility.GetXElement(Utility.cd, xml));
+                    }
                     Utility.cd.RemoveAt(Utility.cd.Count - 1);
                 }
             }
@@ -881,7 +892,12 @@ namespace WordLearning
                 if (Utility.selectpositions[i])
                 {
                     Utility.cd.Add(Utility.Start_Elements[i].Number);
-                    Removelist.Add(Utility.GetXElement(Utility.cd, xml));
+
+                    if (!(adapter.selectedfolderposition.Count >= Utility.cd.Count &&
+                        adapter.selectedfolderposition.Take(Utility.cd.Count).SequenceEqual(Utility.cd)))
+                    {
+                        Removelist.Add(Utility.GetXElement(Utility.cd, xml));
+                    }
                     Utility.cd.RemoveAt(Utility.cd.Count - 1);
                 }
             }
@@ -1361,7 +1377,6 @@ namespace WordLearning
             spinnerWord.Adapter = new ArrayAdapter(start, Android.Resource.Layout.SimpleSpinnerItem, Utility.Localedict.Keys.ToList());
             spinnerMeaning.Adapter = new ArrayAdapter(start,Android.Resource.Layout.SimpleSpinnerItem,Utility.Localedict.Keys.ToList());
             spinnerMeaning.SetSelection(Utility.Localedict.Keys.ToList().IndexOf("日本語"));
-            //spinnerMeaning.SetSelection(4);
             edittext.Text = "5";
             if (elm.Attribute("Sleepcount") != null)
             {
@@ -1404,17 +1419,17 @@ namespace WordLearning
                 if (elm.Attribute("Sleepcount") == null) 
                 {
                     elm.Add(new XAttribute("Sleepcount", Sleepcount));
-                 };
+                }
                 elm.Attribute("Sleepcount").Value = Sleepcount.ToString();
                 if (elm.Attribute("VoicelanguageWord") == null) 
                 {
                     elm.Add(new XAttribute("VoicelanguageWord", VoicelanguageWord));
-                 };
+                }
                 elm.Attribute("VoicelanguageWord").Value = VoicelanguageWord;
                 if (elm.Attribute("VoicelanguageMeaning") == null)
                 {
                     elm.Add(new XAttribute("VoicelanguageMeaning", VoicelanguageMeaning));
-                };
+                }
                 elm.Attribute("VoicelanguageMeaning").Value = VoicelanguageMeaning;
                 xml.Save(Utility.WordListPath);
                 view.FindViewById<EditText>(Resource.Id.etxtInterval_Dialog_SettingWordlist).Text = Sleepcount.ToString();
@@ -1428,47 +1443,200 @@ namespace WordLearning
     /// <summary>
     /// Array adapter start move.
     /// </summary>
-    public class ArrayAdapter_Start_Move : CustomArrayAdapter
+    //public class ArrayAdapter_Start_Move : CustomArrayAdapter
+    //{
+    //    List<KeyValuePair<List<int>, XElement>> list;
+    //    public ArrayAdapter_Start_Move(Context context, int resource, IList objects) : base(context, resource, objects)
+    //    {
+    //        list = (List<KeyValuePair<List<int>, XElement>>)objects;
+    //    }
+
+    //    public override View GetView(int position, View convertView, ViewGroup parent)
+    //    {
+    //        KeyValuePair<List<int>, XElement> item3 = new KeyValuePair<List<int>, XElement>();
+    //        ListView listView = (ListView)parent;
+    //        if (list != null)
+    //        {
+    //            View view;
+    //            if (convertView != null)
+    //            {
+    //                view = convertView;
+    //            }
+    //            else
+    //            {
+    //                view = Inflater.Inflate(layoutid, null);
+    //                view.SetPaddingRelative(48, 48, 48, 48);
+    //            }
+    //            item3 = list[position];
+    //            TextView text = null;
+    //            TextView HiddenField = null;
+    //            text = view.FindViewById<TextView>(Resource.Id.tvRow);
+    //            text.Text = XmlConvert.DecodeName(item3.Value.Attribute("Name").Value);
+    //            HiddenField = view.FindViewById<TextView>(Resource.Id.tvHiddenField);
+    //            if (listView.GetTag(Constant.FreeTagKey) != null && (int)listView.GetTag(Constant.FreeTagKey) == position)
+    //            {
+    //                view.SetBackgroundColor(Color.Green);
+    //            }
+    //            else
+    //            {
+    //                view.SetBackgroundColor(Color.White);
+    //            }
+    //            return view;
+    //        }
+    //        return base.GetView(position, convertView, parent);
+    //    }
+    //}
+
+    /// <summary>
+    /// Array adapter start move.
+    /// </summary>
+    public class ArrayAdapter_Start_Move : RecyclerAdapter
     {
         List<KeyValuePair<List<int>, XElement>> list;
-        public ArrayAdapter_Start_Move(Context context, int resource, IList objects) : base(context, resource, objects)
+        private List<List<int>> expandposition = new List<List<int>>();
+        public List<int> selectedfolderposition = new List<int>();
+        public ArrayAdapter_Start_Move(Context context, int resource, IList objects,List<int> selectedposition):base(context,resource,objects)
         {
             list = (List<KeyValuePair<List<int>, XElement>>)objects;
+            list = list.OrderBy(p => p.Key,new ListKeyCompare()).ToList();
+            ImageClick += ArrayAdapter_Start_Move_ImageClick;
+            TextClick += ArrayAdapter_Start_Move_TextClick;
+            selectedposition = new List<int>(selectedposition);
+            List<int> topposition = new List<int> { 0 };
+            expandposition.Add(topposition);
+            List<int> temp = new List<int>(selectedposition.SkipLast(1).ToList());
+            while (!temp.SequenceEqual(topposition))
+            {
+                expandposition.Add(temp);
+                temp = new List<int>(temp.SkipLast(1).ToList());
+            }
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        private void ArrayAdapter_Start_Move_ImageClick(object sender, int e)
         {
-            KeyValuePair<List<int>, XElement> item3 = new KeyValuePair<List<int>, XElement>();
-            ListView listView = (ListView)parent;
-            if (list != null)
+            ArrayAdapter_Start_Move aasm = sender as ArrayAdapter_Start_Move;
+            if (!expandposition.Contains(aasm.list[e].Key, new ListCompare()))
             {
-                View view;
-                if (convertView != null)
-                {
-                    view = convertView;
-                }
-                else
-                {
-                    view = Inflater.Inflate(layoutid, null);
-                    view.SetPaddingRelative(48, 48, 48, 48);
-                }
-                item3 = list[position];
-                TextView text = null;
-                TextView HiddenField = null;
-                text = view.FindViewById<TextView>(Resource.Id.tvRow);
-                text.Text = XmlConvert.DecodeName(item3.Value.Attribute("Name").Value);
-                HiddenField = view.FindViewById<TextView>(Resource.Id.tvHiddenField);
-                if (listView.GetTag(Constant.FreeTagKey) != null && (int)listView.GetTag(Constant.FreeTagKey) == position)
-                {
-                    view.SetBackgroundColor(Color.Green);
-                }
-                else
-                {
-                    view.SetBackgroundColor(Color.White);
-                }
-                return view;
+                expandposition.Add(aasm.list[e].Key);
             }
-            return base.GetView(position, convertView, parent);
+            else
+            {
+                for(int i = 0; i < expandposition.Count; i++)
+                {
+                    if(expandposition[i].Count >= aasm.list[e].Key.Count && expandposition[i].Take(aasm.list[e].Key.Count).ToList().SequenceEqual(aasm.list[e].Key))
+                    {
+                        expandposition.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+            NotifyDataSetChanged();
+        }
+
+        private void ArrayAdapter_Start_Move_TextClick(object sender, int e)
+        {
+            ArrayAdapter_Start_Move aasm = sender as ArrayAdapter_Start_Move;
+            Dictionary<bool, List<int>> selectfolderlist = new Dictionary<bool, List<int>>() { { true, new List<int>() }, { false, aasm.list[e].Key } };
+            selectedfolderposition = new List<int>(selectfolderlist[selectedfolderposition.SequenceEqual(aasm.list[e].Key)]);
+            NotifyDataSetChanged();
+        }
+
+        public override void OnBindViewHolder(ViewHolder holder, int position)
+        {
+            Folderlist vh = holder as Folderlist;
+            vh.ItemView.Visibility = ViewStates.Visible;
+            if (expandposition.Contains(list[position].Key, new ListCompare()))
+            {
+                // Load the photo image resource from the photo album:
+                vh.ItemView.SetPaddingRelative(48 * (list[position].Key.Count - 2), 0, 48 * (list[position].Key.Count - 2), 0);
+                vh.Image.SetImageResource(Resource.Drawable.ic_below_48pt);
+            }
+            else if(expandposition.Contains(list[position].Key.SkipLast(1).ToList(), new ListCompare()))
+            {
+                vh.ItemView.SetPaddingRelative(48*(list[position].Key.Count - 2), 0, 48 * (list[position].Key.Count - 2), 0);
+                vh.Image.SetImageResource(Resource.Drawable.ic_switchdirectory_48pt);
+            }
+            else
+            {
+                vh.ItemView.Visibility = ViewStates.Invisible;
+            }
+            Dictionary<bool, Color> selectcolorlist = new Dictionary<bool, Color>() { { true, Color.Green }, { false, Color.White } };
+            vh.Foldername.SetBackgroundColor(selectcolorlist[selectedfolderposition.SequenceEqual(list[position].Key)]);
+            vh.Foldername.Text = XmlConvert.DecodeName(list[position].Value.Attribute("Name").Value);
+        }
+
+        private class ListCompare : IEqualityComparer<List<int>>
+        {
+            bool IEqualityComparer<List<int>>.Equals(List<int> x, List<int> y)
+            {
+                return x.SequenceEqual(y);
+            }
+
+            int IEqualityComparer<List<int>>.GetHashCode(List<int> obj)
+            {
+                return obj.Aggregate((val,next) => val << 2 ^ next);
+            }
+        }
+
+        private class ListKeyCompare : IComparer<List<int>>
+        {
+            public int Compare(List<int> x, List<int> y)
+            {
+                int length = x.Count > y.Count ? x.Count : y.Count;
+                for(int i = 0; i < length; i++)
+                {
+                    if(i == x.Count)
+                    {
+                        return -1;
+                    }
+                    else if(i == y.Count)
+                    {
+                        return 1;
+                    }
+                    if(x[i] < y[i])
+                    {
+                        return -1;
+                    }
+                    else if(x[i] > y[i])
+                    {
+                        return 1;
+                    }
+                }
+                return 0;
+                //throw new NotImplementedException();
+            }
+        }
+
+        public override ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            // Inflate the CardView for the photo:
+            View itemView = LayoutInflater.From(parent.Context).
+                        Inflate(Resource.Layout.row_SelectDestination, parent, false);
+
+            // Create a ViewHolder to hold view references inside the CardView:
+            Folderlist vh = new Folderlist(itemView, OnImageClick,OnTextClick);
+            return vh;
+        }
+
+
+        public override int ItemCount
+        {
+            get { return list.Count; }
+        }
+    }
+
+
+    public class Folderlist : ViewHolder
+    {
+        public ImageView Image { get; private set; }
+        public TextView Foldername { get; private set; }
+
+        public Folderlist(View itemView, Action<int> imageclicklistener,Action<int> textclicklistener): base(itemView)
+        {
+            Image = itemView.FindViewById<ImageView>(Resource.Id.iv_row_SelectDestination);
+            Foldername = itemView.FindViewById<TextView>(Resource.Id.tvFoldername_row_SelectDestination);
+            Image.Click += (sender, e) => imageclicklistener(base.LayoutPosition);
+            Foldername.Click += (sender, e) => textclicklistener(LayoutPosition);
         }
     }
 
