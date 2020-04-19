@@ -15,7 +15,7 @@ namespace WordLearning
 {
 	
 	
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
 	public partial class Resource
 	{
 		
@@ -138,17 +138,17 @@ namespace WordLearning
 			// aapt resource value: 0x7F030000
 			public const int array_Backup_And_Recover = 2130903040;
 			
-			// aapt resource value: 0x7F030003
-			public const int array_Changethemecolor = 2130903043;
+			// aapt resource value: 0x7F030002
+			public const int array_Changethemecolor = 2130903042;
 			
 			// aapt resource value: 0x7F030001
 			public const int array_CSVfileimport = 2130903041;
 			
-			// aapt resource value: 0x7F030004
-			public const int array_ImportFromImage = 2130903044;
+			// aapt resource value: 0x7F030003
+			public const int array_ImportFromImage = 2130903043;
 			
-			// aapt resource value: 0x7F030005
-			public const int array_Question_bulletin_board = 2130903045;
+			// aapt resource value: 0x7F030004
+			public const int array_Question_bulletin_board = 2130903044;
 			
 			static Array()
 			{

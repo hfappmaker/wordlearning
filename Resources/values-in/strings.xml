@@ -21,9 +21,9 @@
 <string-array name="array_CSVfileimport">
 <item>Import CSV file</item>
 </string-array>
-<string-array name="array_Changehomename">
-<item>ホーム名の変更</item>
-</string-array>
+<string-array name="array_Question_bulletin_board">
+<item>Question bulletin board</item>
+</string-array>s
 <!--Dialog_CreateNewTag-->
 <string name="square_Dialog_CreateNewTag">Square</string>
 <string name="star_Dialog_CreateNewTag">Star</string>

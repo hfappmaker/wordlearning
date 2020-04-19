@@ -15,14 +15,14 @@
 <string-array name="array_Changethemecolor">
 <item>Änderung der Designfarbe</item>
 </string-array>
-<string-array name="array_ImportFromImage">
-<item>ImportFromImage</item>
-</string-array>
 <string-array name="array_CSVfileimport">
 <item>CSV-Datei importieren</item>
 </string-array>
-<string-array name="array_Changehomename">
-<item>ホーム名の変更</item>
+<string-array name="array_Question_bulletin_board">
+<item>Question bulletin board</item>
+</string-array>
+<string-array name="array_ImportFromImage">
+<item>ImportFromImage</item>
 </string-array>
 <!--Dialog_CreateNewTag-->
 <string name="square_Dialog_CreateNewTag">Quadrat</string>

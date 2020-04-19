@@ -247,7 +247,7 @@ namespace WordLearning
             }
             await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).SetValueAsync(string.Empty);
             string datenow = DateTime.UtcNow.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-us"));
-            var pp = FirebaseInstanceId.Instance.Id;
+            //var pp = FirebaseInstanceId.Instance.Id;
             await test.Child(XmlConvert.EncodeName(textInputEditText.Text)).Child(XmlConvert.EncodeName(datenow)).SetValueAsync(string.Empty);
             test.AddValueEventListener(new listtitleevent(this));
         }

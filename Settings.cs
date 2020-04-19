@@ -37,7 +37,7 @@ namespace WordLearning
         XElement xelmnow = XDocument.Load(Utility.WordListPath).Root;
         SeekBar[] seekBars = new SeekBar[3];
         List<(string, List<string[]>)> contentdata = new List<(string, List<string[]>)>();
-        private int position_dlg;
+        private int position_dlg = 0;
         private Dictionary<List<int>, XElement> AllFolder;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -501,7 +501,7 @@ namespace WordLearning
 
         public void lv_Settings_ImportFromImage_ItemClick(object sender, ItemClickEventArgs e)
         {
-            CameraCheck();
+            //CameraCheck();
             //FirebaseVisionImage
         }
 
@@ -724,23 +724,23 @@ namespace WordLearning
             }
 
         }
-        /// <summary>
-        /// Check whether Camera is enabled or not.
-        /// </summary>
-        /// <param name="sender">Sender.</param>
-        /// <param name="e">E.</param>
-        private void CameraCheck()
-        {
-            Permission permission = CheckSelfPermission(Manifest.Permission.Camera);
-            if (permission != Permission.Granted)
-            {
-                RequestPermissions(new string[] { Manifest.Permission.Camera }, (int)PermissionRequestCode.ImportFromImage);
-            }
-            else
-            {
-                ImportFromImage();
-            }
-        }
+        ///// <summary>
+        ///// Check whether Camera is enabled or not.
+        ///// </summary>
+        ///// <param name="sender">Sender.</param>
+        ///// <param name="e">E.</param>
+        //private void CameraCheck()
+        //{
+        //    Permission permission = CheckSelfPermission(Manifest.Permission.Camera);
+        //    if (permission != Permission.Granted)
+        //    {
+        //        RequestPermissions(new string[] { Manifest.Permission.Camera }, (int)PermissionRequestCode.ImportFromImage);
+        //    }
+        //    else
+        //    {
+        //        ImportFromImage();
+        //    }
+        //}
 
         private void ImportFromImage()
         {
@@ -1030,7 +1030,7 @@ namespace WordLearning
             #region IDisposable Support
             private bool disposedValue = false; // 重複する呼び出しを検出するには
 
-            protected virtual void Dispose(bool disposing)
+            protected virtual new void Dispose(bool disposing)
             {
                 if (!disposedValue)
                 {
